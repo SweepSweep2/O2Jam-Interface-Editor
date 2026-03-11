@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b1tv25nxjohy6"]
+
+[ext_resource type="Script" uid="uid://bbqyyycv5cscs" path="res://Scripts/OpenFile/OpenFile.gd" id="1_3l634"]
+
+[node name="OpenFile" type="FileDialog" unique_id=190890713]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+visible = true
+content_scale_factor = 0.64
+ok_button_text = "Open"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.opi", "*.opa")
+script = ExtResource("1_3l634")
+
+[connection signal="file_selected" from="." to="." method="_on_file_selected"]

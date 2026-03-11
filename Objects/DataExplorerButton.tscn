@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bnjitjglnbthq"]
+
+[ext_resource type="Script" uid="uid://1l6m3vnu5fb8" path="res://Scripts/DataExplorer/DataExplorerButton.gd" id="1_ippbi"]
+
+[node name="DataExplorerButton" type="Button" unique_id=1550456070]
+script = ExtResource("1_ippbi")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

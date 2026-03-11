@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://c20mq0qawvb0v"]
+
+[ext_resource type="Script" uid="uid://byubx4yy744rl" path="res://Scripts/Tools/AbuseDataViewer.gd" id="1_o5awd"]
+
+[node name="AbuseDataViewer" type="Window" unique_id=367951258]
+oversampling_override = 1.0
+title = "Abuse Data Viewer"
+initial_position = 1
+size = Vector2i(640, 480)
+unresizable = true
+maximize_disabled = true
+script = ExtResource("1_o5awd")
+
+[node name="Warning" type="Control" parent="." unique_id=290708923]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WarningTop" type="RichTextLabel" parent="Warning" unique_id=474357598]
+layout_mode = 0
+offset_top = 85.0
+offset_right = 640.0
+offset_bottom = 125.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1]!!! WARNING !!![/shake]"
+horizontal_alignment = 1
+
+[node name="WarningContent" type="RichTextLabel" parent="Warning" unique_id=1268528739]
+layout_mode = 0
+offset_top = 149.0
+offset_right = 640.0
+offset_bottom = 236.0
+theme_override_font_sizes/normal_font_size = 22
+bbcode_enabled = true
+text = "You are about to view the swear filter, which contains swears and slurs."
+horizontal_alignment = 1
+
+[node name="Proceed" type="Button" parent="Warning" unique_id=1318099652]
+layout_mode = 0
+offset_left = 284.5
+offset_top = 245.0
+offset_right = 355.5
+offset_bottom = 276.0
+text = "Proceed"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=748997633]
+visible = false
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2065437683]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Warning/Proceed" to="." method="_on_proceed_pressed"]

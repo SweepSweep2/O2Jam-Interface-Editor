@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://bnqcf1yswuvdr"]
+
+[ext_resource type="Script" uid="uid://5e4trhbitc17" path="res://Scripts/Tools/BNDViewer.gd" id="1_wo7dt"]
+
+[node name="BndViewer" type="Window" unique_id=582813882]
+oversampling_override = 1.0
+title = "BND Editor"
+initial_position = 1
+size = Vector2i(1000, 600)
+script = ExtResource("1_wo7dt")
+
+[node name="Panel" type="Panel" parent="." unique_id=1564930578]
+offset_right = 200.0
+offset_bottom = 230.0
+
+[node name="Title" type="Label" parent="Panel" unique_id=1601270853]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 200.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 20
+text = "BND Object Data"
+horizontal_alignment = 1
+
+[node name="SelectAnObject" type="Label" parent="Panel" unique_id=1737389126]
+layout_mode = 0
+offset_top = 88.0
+offset_right = 200.0
+offset_bottom = 147.0
+theme_override_font_sizes/font_size = 20
+text = "Click on an object to edit its data!"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="CurrentObject" type="Label" parent="Panel" unique_id=2061559955]
+visible = false
+layout_mode = 0
+offset_top = 40.0
+offset_right = 200.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 20
+text = "Object Selected: "
+horizontal_alignment = 1
+
+[node name="XText" type="Label" parent="Panel" unique_id=1743364364]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 88.0
+offset_right = 56.0
+offset_bottom = 111.0
+text = "X:"
+
+[node name="XInput" type="LineEdit" parent="Panel" unique_id=1943187697]
+visible = false
+layout_mode = 0
+offset_left = 36.0
+offset_top = 86.0
+offset_right = 186.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 14
+placeholder_text = "0"
+
+[node name="YText" type="Label" parent="Panel" unique_id=786136782]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 120.0
+offset_right = 56.0
+offset_bottom = 143.0
+text = "Y:"
+
+[node name="YInput" type="LineEdit" parent="Panel" unique_id=348043341]
+visible = false
+layout_mode = 0
+offset_left = 36.0
+offset_top = 118.0
+offset_right = 186.0
+offset_bottom = 146.0
+theme_override_font_sizes/font_size = 14
+placeholder_text = "0"
+
+[node name="WidthText" type="Label" parent="Panel" unique_id=825673356]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 152.0
+offset_right = 67.0
+offset_bottom = 175.0
+text = "Width:"
+
+[node name="WidthInput" type="LineEdit" parent="Panel" unique_id=85002785]
+visible = false
+layout_mode = 0
+offset_left = 71.0
+offset_top = 150.0
+offset_right = 186.0
+offset_bottom = 178.0
+theme_override_font_sizes/font_size = 14
+placeholder_text = "0"
+
+[node name="HeightText" type="Label" parent="Panel" unique_id=328890788]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 184.0
+offset_right = 72.0
+offset_bottom = 207.0
+text = "Height:"
+
+[node name="HeightInput" type="LineEdit" parent="Panel" unique_id=1224331328]
+visible = false
+layout_mode = 0
+offset_left = 76.0
+offset_top = 182.0
+offset_right = 186.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 14
+placeholder_text = "0"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="Panel/XInput" to="." method="_on_x_input_text_changed"]
+[connection signal="text_changed" from="Panel/YInput" to="." method="_on_y_input_text_changed"]
+[connection signal="text_changed" from="Panel/WidthInput" to="." method="_on_width_input_text_changed"]
+[connection signal="text_changed" from="Panel/HeightInput" to="." method="_on_height_input_text_changed"]

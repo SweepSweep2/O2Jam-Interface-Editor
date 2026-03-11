@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bpatqwgt67cu3"]
+
+[ext_resource type="Script" uid="uid://bsqb35ycdjot" path="res://Scripts/DataExplorer/StateViewerButton.gd" id="1_k6c6v"]
+
+[node name="StateViewerButton" type="Button" unique_id=1550456070]
+script = ExtResource("1_k6c6v")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

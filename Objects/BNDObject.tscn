@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://o1xt11dvp043"]
+
+[ext_resource type="Script" uid="uid://bb8k0xeggaevl" path="res://Scripts/BNDObject.gd" id="1_6h1mg"]
+
+[node name="BndObject" type="Control" unique_id=333018078]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1191.0
+offset_bottom = -670.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6h1mg")
+
+[node name="ObjectName" type="Label" parent="." unique_id=1644132677]
+z_index = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

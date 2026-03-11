@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bsvkcbjcafcah"]
+
+[ext_resource type="Script" uid="uid://t4lwj1kqi7rn" path="res://Scripts/AddFrameFilePicker.gd" id="1_2sgef"]
+
+[node name="AddFrameFilePicker" type="FileDialog" unique_id=1869168105]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+visible = true
+content_scale_factor = 0.64
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.bmp")
+script = ExtResource("1_2sgef")
+
+[connection signal="file_selected" from="." to="." method="_on_file_selected"]

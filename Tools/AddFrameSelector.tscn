@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c5nc22etupv0e"]
+
+[ext_resource type="Script" uid="uid://f33m8qh4ori" path="res://Scripts/Tools/AddFrameSelector.gd" id="1_tw0hk"]
+
+[node name="AddFrameSelector" type="Window" unique_id=1246440425]
+oversampling_override = 1.0
+title = "Add a Frame"
+position = Vector2i(0, 36)
+size = Vector2i(340, 120)
+unresizable = true
+maximize_disabled = true
+script = ExtResource("1_tw0hk")
+
+[node name="Label" type="Label" parent="." unique_id=1279698688]
+offset_top = 16.0
+offset_right = 340.0
+offset_bottom = 39.0
+text = "Only 16-bit and 24-bit BMPs are allowed!"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=377586792]
+offset_left = 111.5
+offset_top = 58.0
+offset_right = 228.5
+offset_bottom = 89.0
+text = "OK"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

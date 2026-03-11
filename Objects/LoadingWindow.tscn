@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d38xlvndxqh5s"]
+
+[node name="LoadingWindow" type="Window" unique_id=1247563024]
+oversampling_override = 1.0
+title = "Loading..."
+initial_position = 1
+size = Vector2i(200, 100)
+exclusive = true
+
+[node name="Label" type="Label" parent="." unique_id=817394349]
+offset_left = 61.0
+offset_top = 37.0
+offset_right = 136.0
+offset_bottom = 60.0
+text = "Loading..."

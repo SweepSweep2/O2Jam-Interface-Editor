@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ctlcesgqmblgr"]
+
+[ext_resource type="Script" uid="uid://cpwlamtlk78l4" path="res://Scripts/Tools/ControlListInterfaceEditor.gd" id="1_cvr3i"]
+
+[node name="ControlListInterfaceEditor" type="Window" unique_id=23708522]
+oversampling_override = 1.0
+title = "Control List Interface Editor"
+initial_position = 1
+size = Vector2i(800, 600)
+script = ExtResource("1_cvr3i")
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=840978448]
+offset_right = 800.0
+offset_bottom = 600.0
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="TextEdit" to="." method="_on_text_edit_text_changed"]

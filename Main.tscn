@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://dcn7t0l7np0lj"]
+
+[ext_resource type="Script" uid="uid://da4650wop8snj" path="res://Scripts/InterfaceEditor.gd" id="1_3dxm6"]
+[ext_resource type="Texture2D" uid="uid://cxgwpttepdgrv" path="res://ImageAssets/folder.png" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://66nxowpoq8lg" path="res://Scripts/MenuBar.gd" id="1_uu6xs"]
+[ext_resource type="Script" uid="uid://j5nbk7f5avql" path="res://Scripts/OpenFile/OpenFileButton.gd" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://m1y78bowe3yn" path="res://Scripts/DataExplorer/Search.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://bwn8h37q2nen4" path="res://Scripts/DataExplorerStateViewer.gd" id="4_fos0i"]
+
+[node name="InterfaceEditor" type="Control" unique_id=71904780]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3dxm6")
+
+[node name="MenuBar" type="MenuBar" parent="." unique_id=881137560]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 40.0
+
+[node name="PopupMenu" type="PopupMenu" parent="MenuBar" unique_id=940668178]
+oversampling_override = 1.0
+title = "File"
+item_count = 2
+item_0/text = "Open"
+item_0/id = 0
+item_1/text = "Save"
+item_1/id = 1
+script = ExtResource("1_uu6xs")
+
+[node name="ToBegin" type="Control" parent="." unique_id=727189890]
+anchors_preset = 0
+offset_left = -130.0
+offset_top = 6.0
+offset_right = -90.0
+offset_bottom = 46.0
+
+[node name="Text" type="RichTextLabel" parent="ToBegin" unique_id=1862195264]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 352.0
+offset_right = 1282.0
+offset_bottom = 433.0
+theme_override_font_sizes/italics_font_size = 11
+bbcode_enabled = true
+text = "To begin, open an interface file.
+[i].opa/.opi"
+horizontal_alignment = 1
+
+[node name="Folder" type="Sprite2D" parent="ToBegin" unique_id=486851429]
+modulate = Color(1, 1, 1, 0.23137255)
+position = Vector2(882, 265)
+scale = Vector2(0.37304688, 0.37304688)
+texture = ExtResource("1_glv2v")
+
+[node name="Open" type="Button" parent="ToBegin" unique_id=1076503401]
+layout_mode = 0
+offset_left = 858.0
+offset_top = 395.0
+offset_right = 908.0
+offset_bottom = 426.0
+text = "Open"
+script = ExtResource("3_r0du0")
+
+[node name="DataExplorer" type="Panel" parent="." unique_id=211192736]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 351.0
+offset_bottom = 648.0
+script = ExtResource("4_fos0i")
+
+[node name="Search" type="LineEdit" parent="DataExplorer" unique_id=421569769]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 53.0
+offset_right = 346.0
+offset_bottom = 84.0
+script = ExtResource("4_cm0pq")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DataExplorer" unique_id=262535921]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 93.0
+offset_right = 347.0
+offset_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DataExplorer/ScrollContainer" unique_id=886741514]
+custom_minimum_size = Vector2(286.54, 0)
+layout_mode = 2
+
+[node name="StateViewer" type="ScrollContainer" parent="DataExplorer" unique_id=1124820082]
+visible = false
+layout_mode = 0
+offset_left = 4.0
+offset_top = 93.0
+offset_right = 347.0
+offset_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DataExplorer/StateViewer" unique_id=1591312879]
+custom_minimum_size = Vector2(327, 0)
+layout_mode = 2
+
+[node name="SelectDataExplorer" type="Button" parent="DataExplorer" unique_id=2084066432]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 156.0
+offset_bottom = 44.0
+text = "Data Explorer"
+
+[node name="SelectStateViewer" type="Button" parent="DataExplorer" unique_id=954656868]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 13.0
+offset_right = 346.0
+offset_bottom = 44.0
+text = "State Viewer"
+
+[node name="O2Jam" type="ColorRect" parent="." unique_id=2123124346]
+visible = false
+layout_mode = 0
+offset_left = 352.0
+offset_top = 48.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Add a _There are no UI files associated with this interface file_" type="Sprite2D" parent="." unique_id=1970051533]
+visible = false
+
+[node name="StatePreview" type="Control" parent="." unique_id=1360192428]
+anchors_preset = 0
+offset_left = 351.0
+offset_top = 40.0
+offset_right = 351.0
+offset_bottom = 40.0
+
+[node name="ShowObjectNames" type="CheckButton" parent="." unique_id=670631125]
+layout_mode = 0
+offset_left = 1076.0
+offset_right = 1279.0
+offset_bottom = 31.0
+button_pressed = true
+text = "Show Object Names"
+
+[connection signal="id_pressed" from="MenuBar/PopupMenu" to="MenuBar/PopupMenu" method="_on_id_pressed"]
+[connection signal="pressed" from="ToBegin/Open" to="ToBegin/Open" method="_on_pressed"]
+[connection signal="text_changed" from="DataExplorer/Search" to="DataExplorer/Search" method="_on_text_changed"]
+[connection signal="pressed" from="DataExplorer/SelectDataExplorer" to="DataExplorer" method="_on_select_data_explorer_pressed"]
+[connection signal="pressed" from="DataExplorer/SelectStateViewer" to="DataExplorer" method="_on_select_state_viewer_pressed"]
+[connection signal="toggled" from="ShowObjectNames" to="." method="_on_show_object_names_toggled"]
