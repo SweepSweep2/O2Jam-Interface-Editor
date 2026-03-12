@@ -12,8 +12,8 @@ var open_file := load("res://Objects/AddFrameFilePicker.tscn")
 func _ready() -> void:
 	title = file_name + " - OJS Viewer"
 	
-	DiscordRPC.details = "Viewing " + file_name
-	DiscordRPC.refresh()
+	#DiscordRPC.details = "Viewing " + file_name
+	#DiscordRPC.refresh()
 	
 	regex.compile("^[0-9]*$")
 	
@@ -49,23 +49,24 @@ func _ready() -> void:
 		
 		var tex := ImageTexture.create_from_image(img)
 		
-		var _max_size := Vector2(24, 24)
-		var tex_size := tex.get_size()
-		
-		var scale_factor: float = min(
-			_max_size.x / tex_size.x,
-			_max_size.y / tex_size.y
-		)
-		
-		img.resize(
-			int(tex_size.x * scale_factor),
-			int(tex_size.y * scale_factor),
-			Image.INTERPOLATE_NEAREST
-		)
-		
-		tex = ImageTexture.create_from_image(img)
-		
-		frames[i].set_icon(0, tex)
+		if tex:
+			var _max_size := Vector2(24, 24)
+			var tex_size := tex.get_size()
+			
+			var scale_factor: float = min(
+				_max_size.x / tex_size.x,
+				_max_size.y / tex_size.y
+			)
+			
+			img.resize(
+				int(tex_size.x * scale_factor),
+				int(tex_size.y * scale_factor),
+				Image.INTERPOLATE_NEAREST
+			)
+			
+			tex = ImageTexture.create_from_image(img)
+			
+			frames[i].set_icon(0, tex)
 	
 	$TopBar/FrameCount.text = "Frames: " + str(len(File.ojs_files[file_name]["frames"]))
 	$TopBar/Encoder.text = "Encoder: " + ("%02X" % File.ojs_files[file_name]["color_format"][0]) + ("%02X" % File.ojs_files[file_name]["color_format"][1])
@@ -74,8 +75,8 @@ func _ready() -> void:
 	$Main.play(file_name)
 
 func _on_close_requested() -> void:
-	DiscordRPC.details = "Home"
-	DiscordRPC.refresh()
+	#DiscordRPC.details = "Home"
+	#DiscordRPC.refresh()
 	
 	#convert_to_ojs()
 	
@@ -258,23 +259,24 @@ func refresh_viewer():
 		
 		var tex := ImageTexture.create_from_image(img)
 		
-		var _max_size := Vector2(24, 24)
-		var tex_size := tex.get_size()
+		if tex:
+			var _max_size := Vector2(24, 24)
+			var tex_size := tex.get_size()
 
-		var scale_factor: float = min(
-			_max_size.x / tex_size.x,
-			_max_size.y / tex_size.y
-		)
+			var scale_factor: float = min(
+				_max_size.x / tex_size.x,
+				_max_size.y / tex_size.y
+			)
 
-		img.resize(
-			int(tex_size.x * scale_factor),
-			int(tex_size.y * scale_factor),
-			Image.INTERPOLATE_NEAREST
-		)
-		
-		tex = ImageTexture.create_from_image(img)
-		
-		frames[i].set_icon(0, tex)
+			img.resize(
+				int(tex_size.x * scale_factor),
+				int(tex_size.y * scale_factor),
+				Image.INTERPOLATE_NEAREST
+			)
+			
+			tex = ImageTexture.create_from_image(img)
+			
+			frames[i].set_icon(0, tex)
 	
 	$FrameMetadataPanel/SelectAFrame.visible = true
 	$FrameMetadataPanel/Offset.visible = false

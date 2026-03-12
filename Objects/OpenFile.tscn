@@ -13,6 +13,7 @@ file_mode = 0
 display_mode = 1
 access = 2
 filters = PackedStringArray("*.opi", "*.opa")
+use_native_dialog = true
 script = ExtResource("1_3l634")
 
 [connection signal="file_selected" from="." to="." method="_on_file_selected"]

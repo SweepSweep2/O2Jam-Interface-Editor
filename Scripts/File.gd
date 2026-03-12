@@ -733,9 +733,9 @@ func parse(p_file_path: String):
 	get_tree().current_scene.get_node("ToBegin").queue_free()
 	get_tree().current_scene.get_node("LoadingWindow").queue_free()
 	
-	DiscordRPC.state = "Editing " + file_path.get_file()
-	DiscordRPC.large_image = "file_" + file_path.get_file().substr(len(file_path.get_file()) - 3, 3)
-	DiscordRPC.refresh()
+	#DiscordRPC.state = "Editing " + file_path.get_file()
+	#DiscordRPC.large_image = "file_" + file_path.get_file().substr(len(file_path.get_file()) - 3, 3)
+	#DiscordRPC.refresh()
 	
 	GlobalLogger.log_info("Parsed file " + p_file_path + "!")
 	
@@ -805,13 +805,17 @@ func bmp24_to_bmp16(bmp_file: PackedByteArray, width: int, height: int) -> Packe
 	
 	return new_bmp
 
-func bmp16_to_bmp24(bmp_file: PackedByteArray, width: int, height: int) -> PackedByteArray:
-	if width * height * 2 != len(bmp_file):
-		return bmp_file
+func bmp16_to_bmp24(bmp_file: PackedByteArray, width: int, height: int, padding: bool = false) -> PackedByteArray:
+	#if width * height * 2 != len(bmp_file):
+		#return bmp_file 
 	
 	var new_bmp := PackedByteArray()
 	var padding_per_row := (4 - (width * 3) % 4) % 4
-
+	
+	var padding_per_row_16 := 0
+	if padding:
+		padding_per_row_16 = (4 - (width * 2) % 4) % 4
+	
 	var index := 0
 	for y in range(height):
 		for x in range(width):
@@ -829,6 +833,8 @@ func bmp16_to_bmp24(bmp_file: PackedByteArray, width: int, height: int) -> Packe
 			new_bmp.append(b8)
 			new_bmp.append(g8)
 			new_bmp.append(r8)
+		
+		index += padding_per_row_16
 		
 		for i in range(padding_per_row):
 			new_bmp.append(0)

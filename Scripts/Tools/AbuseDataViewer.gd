@@ -1,8 +1,8 @@
 extends Window
 
 func _on_close_requested() -> void:
-	DiscordRPC.details = "Home"
-	DiscordRPC.refresh()
+	#DiscordRPC.details = "Home"
+	#DiscordRPC.refresh()
 	
 	queue_free()
 

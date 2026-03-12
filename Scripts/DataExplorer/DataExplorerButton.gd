@@ -2,20 +2,20 @@ extends Button
 
 func _on_pressed() -> void:
 	if text == "abusedata.ojs":
-		DiscordRPC.details = "Viewing abusedata.ojs"
-		DiscordRPC.refresh()
+		#DiscordRPC.details = "Viewing abusedata.ojs"
+		#DiscordRPC.refresh()
 		
 		var new_abuse_data_viewer: Window = load("res://Tools/AbuseDataViewer.tscn").instantiate()
 		get_tree().current_scene.add_child(new_abuse_data_viewer)
 	elif text == "ControlList_Interface.txt":
-		DiscordRPC.details = "Editing ControlList_Interface.txt"
-		DiscordRPC.refresh()
+		#DiscordRPC.details = "Editing ControlList_Interface.txt"
+		#DiscordRPC.refresh()
 		
 		var new_cli_editor: Window = load("res://Tools/ControlListInterfaceEditor.tscn").instantiate()
 		get_tree().current_scene.add_child(new_cli_editor)
 	elif text.ends_with(".bnd"):
-		DiscordRPC.details = "Editing " + text
-		DiscordRPC.refresh()
+		#DiscordRPC.details = "Editing " + text
+		#DiscordRPC.refresh()
 		
 		var new_bnd_viewer: Window = load("res://Tools/BNDViewer.tscn").instantiate()
 		new_bnd_viewer.file = text

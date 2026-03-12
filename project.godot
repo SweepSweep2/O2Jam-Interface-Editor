@@ -27,7 +27,7 @@ config/icon="uid://bgvgu3va2a1of"
 
 Program="*res://Scripts/Program.gd"
 File="*res://Scripts/File.gd"
-DiscordRPCLoader="*uid://cn4i2dr32mnpt"
+DiscordRPCLoader="uid://cn4i2dr32mnpt"
 GlobalLogger="*uid://c3mbvf46ov6dx"
 
 [display]

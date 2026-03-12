@@ -4,12 +4,12 @@
 oversampling_override = 1.0
 title = "Loading..."
 initial_position = 1
-size = Vector2i(200, 100)
+size = Vector2i(327, 100)
 exclusive = true
 
 [node name="Label" type="Label" parent="." unique_id=817394349]
-offset_left = 61.0
-offset_top = 37.0
-offset_right = 136.0
-offset_bottom = 60.0
-text = "Loading..."
+offset_top = 42.0
+offset_right = 327.0
+offset_bottom = 65.0
+text = "Loading, this may take a while..."
+horizontal_alignment = 1

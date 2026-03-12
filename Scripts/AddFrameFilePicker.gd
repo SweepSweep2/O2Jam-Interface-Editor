@@ -78,7 +78,7 @@ func _on_file_selected(path: String) -> void:
 		for row in rows:
 			reversed_data.append_array(row)
 		
-		var twentyfourbitdata := File.bmp16_to_bmp24(sixteenbitdata, width, height)
+		var twentyfourbitdata := File.bmp16_to_bmp24(sixteenbitdata, width, height, true)
 		
 		# First half
 		var bmp_data := PackedByteArray()
@@ -93,6 +93,9 @@ func _on_file_selected(path: String) -> void:
 		bmp_data.append_array(var_to_bytes(len(twentyfourbitdata) + 54).slice(4))
 		bmp_data.append_array(bmp_data_second)
 		bmp_data.append_array(twentyfourbitdata)
+		
+		var aaa = FileAccess.open("user://testingg.bmp", FileAccess.WRITE)
+		aaa.store_buffer(bmp_data)
 		
 		if !replace_frame:
 			File.ojs_files[ojs_file]["frames"].append({
@@ -120,7 +123,7 @@ func _on_file_selected(path: String) -> void:
 				"data": bmp_data,
 				"16-bit-data": reversed_data
 			})
-		
+		#print(File.ojs_files[ojs_file]["frames"][replace_frame_index])
 		emit_signal("refresh_ojs_viewer")
 	else:
 		print("Only 24-bit and 16-bit BMPs are allowed!")
