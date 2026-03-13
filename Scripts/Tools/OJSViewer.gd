@@ -78,8 +78,6 @@ func _on_close_requested() -> void:
 	#DiscordRPC.details = "Home"
 	#DiscordRPC.refresh()
 	
-	#convert_to_ojs()
-	
 	queue_free()
 
 func _on_frame_viewer_item_mouse_selected(_mouse_position: Vector2, _mouse_button_index: int) -> void:
@@ -128,12 +126,12 @@ func _on_frame_viewer_item_mouse_selected(_mouse_position: Vector2, _mouse_butto
 		$TopBar/DeselectFrame.visible = false
 		$TopBar/ReplaceFrame.visible = false
 		$TopBar/ExportFrame.visible = false
-		$FrameMetadataPanel/WidthLabel.visible = true
-		$FrameMetadataPanel/SizeLabel.visible = true
-		$FrameMetadataPanel/OffsetLabel.visible = true
-		$FrameMetadataPanel/HeightLabel.visible = true
-		$FrameMetadataPanel/XLabel.visible = true
-		$FrameMetadataPanel/YLabel.visible = true
+		$FrameMetadataPanel/WidthLabel.visible = false
+		$FrameMetadataPanel/SizeLabel.visible = false
+		$FrameMetadataPanel/OffsetLabel.visible = false
+		$FrameMetadataPanel/HeightLabel.visible = false
+		$FrameMetadataPanel/XLabel.visible = false
+		$FrameMetadataPanel/YLabel.visible = false
 		
 		$Main.play(file_name)
 

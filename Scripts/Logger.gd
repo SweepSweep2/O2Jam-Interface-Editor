@@ -21,4 +21,3 @@ func log_info(text):
 	timestamp = str(timestamp["hour"]) + ":" + str(timestamp["minute"]) + ":" + str(timestamp["second"])
 	print("[" + timestamp + "] " + text)
 	logfile.store_string("[" + timestamp + "] " + text + "\n")
-	logfile.flush()

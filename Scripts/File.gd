@@ -728,6 +728,8 @@ func parse(p_file_path: String):
 			deb_instantiated.text = file_name
 			deb_instantiated.name = file_name
 			
+			deb_instantiated.custom_minimum_size.x = 327.0
+			
 			get_tree().current_scene.get_node("DataExplorer").get_node("ScrollContainer").get_node("VBoxContainer").add_child(deb_instantiated)
 	
 	for key in parsed_control_list_interface:
@@ -751,6 +753,8 @@ func parse(p_file_path: String):
 	
 	if parsed_control_list_interface.has("STATE_LOGIN"):
 		show_state("STATE_LOGIN")
+	elif parsed_control_list_interface.has("STATE_PLAYING"):
+		show_state("STATE_PLAYING")
 	
 	already_loaded = true
 
@@ -773,7 +777,6 @@ func binary_to_decimal(binary_string: String):
 
 func bmp24_to_bmp16(bmp_file: PackedByteArray, width: int, height: int) -> PackedByteArray:
 	var input_padding_per_row := (4 - (width * 3) % 4) % 4
-	var output_padding_per_row := (4 - (width * 2) % 4) % 4
 	
 	var rows: Array[PackedByteArray] = []
 	var index := 0
@@ -800,20 +803,12 @@ func bmp24_to_bmp16(bmp_file: PackedByteArray, width: int, height: int) -> Packe
 		index += input_padding_per_row
 		rows.append(row)
 	
+	rows.reverse()
+	
 	var new_bmp := PackedByteArray()
 	
 	for row in rows:
-		new_bmp.append_array(row)
-		for i in range(output_padding_per_row):
-			new_bmp.append(0)
-	
-	rows.reverse()
-	
-	new_bmp = PackedByteArray()
-	
-	for row in rows:
 		new_bmp.append_array(row) # row must be raw pixels only
-		new_bmp.resize(new_bmp.size() + output_padding_per_row)
 	
 	return new_bmp
 
@@ -821,9 +816,10 @@ func bmp16_to_bmp24(bmp_file: PackedByteArray, width: int, height: int, padding:
 	var new_bmp := PackedByteArray()
 	var padding_per_row := (4 - (width * 3) % 4) % 4
 	
+	
 	var padding_per_row_16 := 0
 	if padding:
-		padding_per_row_16 = (4 - (width * 2) % 4) % 4
+		padding_per_row_16 = (width * 2) % 4
 	
 	var index := 0
 	for y in range(height):

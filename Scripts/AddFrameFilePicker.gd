@@ -77,7 +77,7 @@ func _on_file_selected(path: String) -> void:
 		bmp_data.append_array(bmp_data_second)
 		bmp_data.append_array(twentyfourbitdata)
 		
-		var padding_per_row := (4 - (width * 3) % 4) % 4
+		var padding_per_row := (width * 2) % 4
 		
 		var rows = []
 		var seek_pos = 54
