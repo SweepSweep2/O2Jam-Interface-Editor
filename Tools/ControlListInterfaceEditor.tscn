@@ -7,6 +7,8 @@ oversampling_override = 1.0
 title = "Control List Interface Editor"
 initial_position = 1
 size = Vector2i(800, 600)
+unresizable = true
+maximize_disabled = true
 script = ExtResource("1_cvr3i")
 
 [node name="TextEdit" type="TextEdit" parent="." unique_id=840978448]

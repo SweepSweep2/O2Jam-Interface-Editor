@@ -33,7 +33,7 @@ func _on_file_selected(path: String) -> void:
 				"width": width,
 				"height": height,
 				"offset": File.ojs_files[ojs_file]["frames"][len(File.ojs_files[ojs_file]["frames"]) - 1]["offset"] + File.ojs_files[ojs_file]["frames"][len(File.ojs_files[ojs_file]["frames"]) - 1]["size"],
-				"size": len(new_data),
+				"size": width * height * 2,
 				"unk": 0,
 				"data": FileAccess.get_file_as_bytes(path),
 				"16-bit-data": new_data
@@ -46,7 +46,7 @@ func _on_file_selected(path: String) -> void:
 				"width": width,
 				"height": height,
 				"offset": 0,
-				"size": len(new_data),
+				"size": width * height * 2,
 				"unk": 0,
 				"data": FileAccess.get_file_as_bytes(path),
 				"16-bit-data": new_data
@@ -61,23 +61,6 @@ func _on_file_selected(path: String) -> void:
 		
 		file.seek(54)
 		var sixteenbitdata := file.get_buffer(file.get_length() - 54)
-		
-		var rows = []
-		var seek_pos = 54
-		
-		for i in range(height):
-			file.seek(seek_pos)
-			rows.append(file.get_buffer(width * 2))
-			
-			seek_pos += width * 2
-		
-		rows.reverse()
-		
-		var reversed_data = PackedByteArray()
-		
-		for row in rows:
-			reversed_data.append_array(row)
-		
 		var twentyfourbitdata := File.bmp16_to_bmp24(sixteenbitdata, width, height, true)
 		
 		# First half
@@ -94,8 +77,24 @@ func _on_file_selected(path: String) -> void:
 		bmp_data.append_array(bmp_data_second)
 		bmp_data.append_array(twentyfourbitdata)
 		
-		var aaa = FileAccess.open("user://testingg.bmp", FileAccess.WRITE)
-		aaa.store_buffer(bmp_data)
+		var padding_per_row := (4 - (width * 3) % 4) % 4
+		
+		var rows = []
+		var seek_pos = 54
+		
+		for i in range(height):
+			file.seek(seek_pos)
+			rows.append(file.get_buffer(width * 2))
+			
+			seek_pos += width * 2
+			seek_pos += padding_per_row
+		
+		rows.reverse()
+		
+		var reversed_data = PackedByteArray()
+		
+		for row in rows:
+			reversed_data.append_array(row)
 		
 		if !replace_frame:
 			File.ojs_files[ojs_file]["frames"].append({
@@ -105,7 +104,7 @@ func _on_file_selected(path: String) -> void:
 				"width": width,
 				"height": height,
 				"offset": File.ojs_files[ojs_file]["frames"][len(File.ojs_files[ojs_file]["frames"]) - 1]["offset"] + File.ojs_files[ojs_file]["frames"][len(File.ojs_files[ojs_file]["frames"]) - 1]["size"],
-				"size": len(sixteenbitdata),
+				"size": width * height * 2,
 				"unk": 0,
 				"data": bmp_data,
 				"16-bit-data": reversed_data
@@ -118,15 +117,15 @@ func _on_file_selected(path: String) -> void:
 				"width": width,
 				"height": height,
 				"offset": 0,
-				"size": len(sixteenbitdata),
+				"size": width * height * 2,
 				"unk": 0,
 				"data": bmp_data,
 				"16-bit-data": reversed_data
 			})
-		#print(File.ojs_files[ojs_file]["frames"][replace_frame_index])
+		
 		emit_signal("refresh_ojs_viewer")
 	else:
-		print("Only 24-bit and 16-bit BMPs are allowed!")
-			
+		GlobalLogger.log_info("Only 24-bit and 16-bit BMPs are allowed!")
+		
 		var open_file_instantiated: Window = open_file.instantiate()
 		get_tree().current_scene.add_child(open_file_instantiated)

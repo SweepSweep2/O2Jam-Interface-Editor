@@ -7,6 +7,8 @@ oversampling_override = 1.0
 title = "BND Editor"
 initial_position = 1
 size = Vector2i(1000, 600)
+unresizable = true
+maximize_disabled = true
 script = ExtResource("1_wo7dt")
 
 [node name="Panel" type="Panel" parent="." unique_id=1564930578]

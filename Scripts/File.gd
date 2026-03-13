@@ -11,14 +11,13 @@ var parsed_control_list_interface := {}
 
 var swears := []
 
-var update_sprite_position := false
-var positions := []
-
 var file: FileAccess
 var file_path: String
 var data_explorer_button := load("res://Objects/DataExplorerButton.tscn")
 var state_object := load("res://Objects/StateObject.tscn")
 var state_viewer_button := load("res://Objects/StateViewerButton.tscn")
+
+var already_loaded = false
 
 func show_state(state: String):
 	GlobalLogger.log_info("Showing state " + state + "...")
@@ -36,7 +35,7 @@ func show_state(state: String):
 		if not key.begins_with("set_"):
 			if key != "values" and key != "BOUND":
 				if len(value["values"]) > 1:
-					file_name = value["values"][1].replace("\"", "")
+					file_name = value["values"][1].replace("\"", "").replace(" ", "")
 					
 					if file_name.to_lower() in lowercase_files and not file_name.to_lower().begins_with("o2_sbs"):
 						lowercase_file_key = lowercase_files[file_name.to_lower()]
@@ -558,9 +557,6 @@ func parse_control_list_interface(control_list_interface: PackedByteArray):
 					while line[i] == 9 and i < len(line) - 1:
 						i += 1
 					
-					#if i >= len(line):
-						#break
-					
 					values.append(temp_value)
 					temp_value = ""
 					continue
@@ -582,9 +578,6 @@ func parse_control_list_interface(control_list_interface: PackedByteArray):
 				if line[i] == 9: # skip to the next value once we reach a tab
 					while i < len(line) - 1 and line[i] == 9:
 						i += 1
-					
-					#if i >= len(line) - 1:
-						#break
 					
 					values.append(temp_value)
 					temp_value = ""
@@ -645,6 +638,22 @@ func parse(p_file_path: String):
 	
 	await get_tree().create_timer(0.1).timeout
 	
+	files = {}
+	ojs_files = {}
+	parsed_control_list_interface = {}
+	lowercase_files = {}
+	ojs_keys_lower = {}
+	swears = []
+	
+	for child in get_tree().current_scene.get_node("DataExplorer").get_node("ScrollContainer").get_node("VBoxContainer").get_children():
+		child.queue_free()
+	
+	for child in get_tree().current_scene.get_node("DataExplorer").get_node("StateViewer").get_node("VBoxContainer").get_children():
+		child.queue_free()
+	
+	for child in get_tree().current_scene.get_node("StatePreview").get_children():
+		child.queue_free()
+	
 	file = FileAccess.open(file_path, FileAccess.READ_WRITE)
 	
 	file.seek(0)
@@ -675,7 +684,7 @@ func parse(p_file_path: String):
 		
 		if file_name == "abusedata.ojs":
 			data = file.get_buffer(size)
-		elif file_name == "ControlList_Interface.txt":
+		elif file_name == "ControlList_Interface.txt" or file_name == "ControlList_Playing.txt":
 			data = file.get_buffer(size)
 			parse_control_list_interface(data)
 		elif file_name.substr(len(file_name) - 4, 4) == ".bnd":
@@ -730,8 +739,9 @@ func parse(p_file_path: String):
 			
 			get_tree().current_scene.get_node("DataExplorer").get_node("StateViewer").get_node("VBoxContainer").add_child(svb_instantiated)
 	
-	get_tree().current_scene.get_node("ToBegin").queue_free()
-	get_tree().current_scene.get_node("LoadingWindow").queue_free()
+	if not already_loaded:
+		get_tree().current_scene.get_node("ToBegin").queue_free()
+		get_tree().current_scene.get_node("LoadingWindow").queue_free()
 	
 	#DiscordRPC.state = "Editing " + file_path.get_file()
 	#DiscordRPC.large_image = "file_" + file_path.get_file().substr(len(file_path.get_file()) - 3, 3)
@@ -741,6 +751,8 @@ func parse(p_file_path: String):
 	
 	if parsed_control_list_interface.has("STATE_LOGIN"):
 		show_state("STATE_LOGIN")
+	
+	already_loaded = true
 
 # Credits: Ivan Skodje
 # https://ivanskodje.com/conversion-between-binary-decimal/
@@ -806,9 +818,6 @@ func bmp24_to_bmp16(bmp_file: PackedByteArray, width: int, height: int) -> Packe
 	return new_bmp
 
 func bmp16_to_bmp24(bmp_file: PackedByteArray, width: int, height: int, padding: bool = false) -> PackedByteArray:
-	#if width * height * 2 != len(bmp_file):
-		#return bmp_file 
-	
 	var new_bmp := PackedByteArray()
 	var padding_per_row := (4 - (width * 3) % 4) % 4
 	
